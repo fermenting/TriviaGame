@@ -17,42 +17,42 @@
 var jackieTreehorn = {
   questions: [{
     prompt: "What are you doing?",
-    choose: ["Taking a quiz", "Who wants to know?", "Sitting or Standing.", "Chillaxin'."],
+    choose: ["Taking a quiz. ", "Who wants to know? ", "Sitting comfortably. ", "Chillaxin.' "],
     correct: 1
   },
   {
     prompt: "Where are you doing it?",
-    choose: ["On the computer.", "I'm at home", "I'm at work.", "What if it's none of these?"],
+    choose: ["On the computer. ", "I'm at home. ", "I'm at work. ", "What if it's none of these? "],
     correct: 3
   },
   {
     prompt: "What time is it right now?",
-    choose: ["dot com! #Bojack", "It's x hours & y minutes", "When does the sun set?", "The timer above says 1 minute."],
+    choose: ["dot com! #Bojack ", "It's x hours & y minutes. ", "When does the sun set? ", "The timer above says 1 minute. "],
     correct: 2
   },
   {
     prompt: "Why are you here?",
-    choose: ["Here I am!", "Why is anybody anywhere?", "Woah...That's deep.", "I'm thinking about hiring a coder."],
+    choose: ["Here I am! ", "Why is anybody anywhere? ", "Woah...That's deep!. ", "I'm thinking about hiring a web developer. "],
     correct: 1
   },
   {
     prompt: "Do you like quizzes?",
-    choose: ["Yes, they give me personality", "No, too many questions.", "I like popcorn, not pop quizzes.", "How can I say this nicely?"],
+    choose: ["Yes, they tell me my personality. ", "No, too many questions. ", "I like popcorn, not pop quizzes. ", "How can I say this nicely? "],
     correct: 3
   },
   {
     prompt: "If you could make a quiz, what would yours be about?",
-    choose: ["Pizza", "Cats", "Gif vs. Jif", "17th Century French Poetry", "Huh?"],
+    choose: ["Pizza. ", "Cats. ", "Gif vs. Jif. ", "17th Century French Poetry. ", "Huh? "],
     correct: 4
   },
   {
     prompt: "Want an easy one?",
-    choose: ["Yes!", "Do I?", "No!!"],
+    choose: ["Yes! ", "Do I? ", "No!! "],
     correct: 1
   },
   {
     prompt: "Have you figured it out?",
-    choose: ["What if I said yes?", "Of course!", "Too Easy.", "Not this time."],
+    choose: ["What if I said yes? ", "Of course! ", "This was too easy. ", "Not this time. "],
     correct: 0
   }]
 };
@@ -128,20 +128,11 @@ $(document).ready(function () {
 
       //    Questions have radio buttons to select answers
 
-      //we need to loop through the answer array
+      //we need to loop through the answer array in each question
       for (var j in jackieTreehorn.questions[i].choose) {
 
         //to create a new line for each choice
         questionRadio.append($("<br>"))
-
-        //assign option text and option-id
-        radLabel = $("<label>")
-        radLabel.addClass("option-css")
-        radLabel.attr("for", [i].toString() + [j].toString());
-        //assign option text
-        radLabel.text(jackieTreehorn.questions[i].choose[j]);
-
-        questionRadio.append(radLabel)
 
         //create each option as an <input>
         var radio = $("<input>");
@@ -154,10 +145,17 @@ $(document).ready(function () {
         //give each label unique id
         radio.attr("id", [i].toString() + [j].toString());
 
-
         //append to question form 
         questionRadio.append(radio);
-        // console.log(jackieTreehorn.questions[i].choose[j])
+
+        //assign option text and option-id
+        radLabel = $("<label>")
+        radLabel.addClass("option-css")
+        radLabel.attr("for", [i].toString() + [j].toString());
+        //assign option text
+        radLabel.text(jackieTreehorn.questions[i].choose[j]);
+
+        questionRadio.append(radLabel)
 
         //end of 'j' loop
       }
@@ -197,62 +195,21 @@ $(document).ready(function () {
 
   //     //keeping score
 
-  //     function checkScore() {
-  //       var correct;
-  //       var wrong;
-  //       var abstain;
+      function checkScore() {
+        var correct;
+        var wrong;
+        var abstain;
 
 
-  //       if ($("input[name='name0']").val() === jackieTreehorn.questions[0].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name0']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name1']").val() === jackieTreehorn.questions[1].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name1']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name2']").val() === jackieTreehorn.questions[2].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name2']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name3']").val() === jackieTreehorn.questions[3].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name3']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name4']").val() === jackieTreehorn.questions[4].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name4']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name5']").val() === jackieTreehorn.questions[5].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name5']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name6']").val() === jackieTreehorn.questions[6].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name6']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       if ($("input[name='name7']").val() === jackieTreehorn.questions[7].correct) {
-  //         correct++;
-  //       }
-  //       if ($("input[name='name7']").val().isNaN() === true) {
-  //         abstain++;
-  //       }
-  //       wrong = 8 - correct;
-
+        if ($("input[name='name0']").val() === jackieTreehorn.questions[0].correct) {
+          correct++;
+        }
+        if ($("input[name='name0']").val().isNaN() === true) {
+          abstain++;
+        }
+       
+        wrong = 8 - correct;
+}
 
 
   //       //  Game ends when Submit is clicked OR Timer runs out.
