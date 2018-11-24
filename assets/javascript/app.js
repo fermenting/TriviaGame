@@ -86,7 +86,7 @@ $(document).ready(function () {
     questionMaker();
 
     //Timer begins counting down
-    // countDown();
+    countDown();
 
     //end of start button
   }
@@ -101,8 +101,8 @@ $(document).ready(function () {
     //loop through the question bank
     for (var i in jackieTreehorn.questions) {
       // console.log(jackieTreehorn.questions[i].prompt)
-      console.log(jackieTreehorn.questions[i].choose)
-      console.log(jackieTreehorn.questions[i].correct)
+      // console.log(jackieTreehorn.questions[i].choose)
+      // console.log(jackieTreehorn.questions[i].correct)
 
       //create a form for each question
       var questionRadio = $("<form>");
@@ -167,78 +167,87 @@ $(document).ready(function () {
 
 
 
-  //   // //  Timer begins counting down
-  //   // function countDown() {
-  //   //   // Set game time to 2 minutes in seconds
-  //   //   var gameTime = 120;
+  //  Timer begins counting down
+  function countDown() {
 
-  //   //   var tick = setInterval(function () {
+    // Set game time to 2 minutes in seconds
+    var gameTime = 121;
 
-  //   //     //decrease gameTime by 1 second until time is out.
-  //   //     if (gameTime > 0) {
-  //   //       gameTime--;
+    var tick = setInterval(function () {
 
-  //   //       // convert our seconds to minutes, seconds
-  //   //       // Thanks W3schools!
-  //   //       var minutes = Math.floor(gameTime % (1000 * 60 * 60) / (1000 * 60));
-  //   //       var seconds = Math.floor(gameTime % (1000 * 60) / (1000));
-  //   //       $("#timer").innerHTHML = minutes + " minutes : " + seconds + " seconds"
-  //   //       console.log(gameTime)
-  //   //     }
-  //   //     //  Game ends when Submit is clicked OR Timer runs out.
-  //   //     else {
-  //   //       clearInterval(tick);
-  //   //       gameOver();
-  //   //     }
-  //   //   }, 1000);
+      //decrease gameTime by 1 second until time is out.
+      if (gameTime > 0) {
+        gameTime--;
+
+        // convert our seconds to minutes, seconds
+        var minutes = Math.floor(gameTime/60);
+        var seconds = gameTime - (minutes * 60);
+
+        var timerDisplay =  " minutes " + minutes + " : " + seconds + " seconds";
+
+        $("#timer").text(timerDisplay);
+        // console.log(gameTime)
+        // console.log(timerDisplay)
+        
+      }
+      //  Game ends when Submit is clicked OR Timer runs out.
+
+      if (gameTime === 0) {
+        clearInterval();
+        gameOver();
+      }
+    }, 1000);
+
+    //end of countdown function
+  }
 
 
   //     //keeping score
 
-      function checkScore() {
-        var correct;
-        var wrong;
-        var abstain;
+  function checkScore() {
+    var correct;
+    var wrong;
+    var abstain;
 
 
-        if ($("input[name='name0']").val() === jackieTreehorn.questions[0].correct) {
-          correct++;
-        }
-        if ($("input[name='name0']").val().isNaN() === true) {
-          abstain++;
-        }
-       
-        wrong = 8 - correct;
-}
+    if ($("input[name='name0']").val() === jackieTreehorn.questions[0].correct) {
+      correct++;
+    }
+    if ($("input[name='name0']").val().isNaN() === true) {
+      abstain++;
+    }
+
+    wrong = 8 - correct;
+  }
 
 
   //       //  Game ends when Submit is clicked OR Timer runs out.
-  //       function gameOver() {
-  //         // clearInterval(tick);
+  function gameOver() {
+    clearInterval();
 
-  //         //  On game end: 
-  //         //    Questions, Timer, & Submit Disappear
-  //         $("#timer").css('display', 'none');
-  //         $("#questions").css('display', 'none');
-  //         $("#submit").css('display', 'none');
+    checkScore();
 
-  //         //    Results, Correct, Wrong, Abstain & Again appear
-  //         $("#results").css('display', 'block');
-  //         $("#correct").css('display', 'block');
-  //         $("#wrong").css('display', 'block');
-  //         $("#again").css('display', 'block');
+    //         //  On game end: 
+    //         //    Questions, Timer, & Submit Disappear
+    //         $("#timer").css('display', 'none');
+    //         $("#questions").css('display', 'none');
+    //         $("#submit").css('display', 'none');
 
-  //         //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
-  //         $("#results").text('That was a LOT of Questions!');
-  //         $("#correct").text(correct);
-  //         $("#wrong").text(wrong);
-  //         $("#abstain").text(abstain)
-  //       };
+    //         //    Results, Correct, Wrong, Abstain & Again appear
+    //         $("#results").css('display', 'block');
+    //         $("#correct").css('display', 'block');
+    //         $("#wrong").css('display', 'block');
+    //         $("#again").css('display', 'block');
+
+    //         //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
+    //         $("#results").text('That was a LOT of Questions!');
+    //         $("#correct").text(correct);
+    //         $("#wrong").text(wrong);
+    //         $("#abstain").text(abstain)
+
+    //end of gameOver function
+  }
 
 
-  //       //end of document ready 
-
-  //     }
-
-  //   // }
+  //end of document ready 
 });
