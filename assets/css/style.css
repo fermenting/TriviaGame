@@ -1,5 +1,8 @@
 #timer, #questions, #submit, #results, #correct, #wrong, #abstain, #again {
   display: none;
+  font-family: 'Josefin Slab', serif;
+  font-size: 18px
+
 }
 
 .question-css{

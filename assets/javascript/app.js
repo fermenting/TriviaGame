@@ -91,7 +91,7 @@ $(document).ready(function () {
     questionMaker();
 
     // Set game time to 2 minutes in seconds
-    var gameTime = 5;
+    var gameTime = 120;
 
     //Timer begins counting down
     var tick = setInterval(countDown, 1000);
