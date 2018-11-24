@@ -1,6 +1,6 @@
-/* #timer, #questions, #submit, #results, #correct, #wrong, #abstain, #again {
+#timer, #questions, #submit, #results, #correct, #wrong, #abstain, #again {
   display: none;
-} */
+}
 
 .questions-css{
 font-style: bold;

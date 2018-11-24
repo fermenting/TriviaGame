@@ -65,10 +65,15 @@ $(document).ready(function () {
     gameOn();
   });
 
-  //   //submit button ends the game
-  //   $("#submit").on("click", function () {
-  //     gameOver();
-  //   });
+  //submit button ends the game
+  $("#submit").on("click", function () {
+    gameOver();
+  });
+
+  // upon clicking Again, reset all the things:
+  $("#again").on("click", function () {
+    location.reload()
+  });
 
 
   // On click of start button:
@@ -92,8 +97,7 @@ $(document).ready(function () {
   }
 
 
-  //   // upon clicking Again, reset all the things:
-  //   $("again").on("click", location.reload());
+
 
 
   function questionMaker() {
@@ -114,12 +118,13 @@ $(document).ready(function () {
       questionRadio.text(jackieTreehorn.questions[i].prompt);
 
       //assign each question the correct answer value
-      questionRadio.attr("data-correct", jackieTreehorn.questions[i].correct);
+      questionRadio.attr("data-correct", [i] + jackieTreehorn.questions[i].correct);
 
       //give questions the ability for unique stylings
-      questionRadio.addClass("question-css")
+      questionRadio.addClass("question-css");
+      questionRadio.attr("id", "question" + [i]);
 
-      questionRadio.append($("<br>"))
+      questionRadio.append($("<br>"));
 
       //append the question form onto the question div
       $("#questions").append(questionRadio);
@@ -180,15 +185,15 @@ $(document).ready(function () {
         gameTime--;
 
         // convert our seconds to minutes, seconds
-        var minutes = Math.floor(gameTime/60);
+        var minutes = Math.floor(gameTime / 60);
         var seconds = gameTime - (minutes * 60);
 
-        var timerDisplay =  " minutes " + minutes + " : " + seconds + " seconds";
+        var timerDisplay = "Time left:  " + minutes + " : " + seconds;
 
         $("#timer").text(timerDisplay);
         // console.log(gameTime)
         // console.log(timerDisplay)
-        
+
       }
       //  Game ends when Submit is clicked OR Timer runs out.
 
@@ -201,23 +206,46 @@ $(document).ready(function () {
     //end of countdown function
   }
 
+  var correct = 0;
+  var wrong = 0;
+  var abstain = jackieTreehorn.questions.length;
 
-  //     //keeping score
-
+  //keeping score
   function checkScore() {
-    var correct;
-    var wrong;
-    var abstain;
 
 
-    if ($("input[name='name0']").val() === jackieTreehorn.questions[0].correct) {
-      correct++;
-    }
-    if ($("input[name='name0']").val().isNaN() === true) {
-      abstain++;
-    }
+    // //example code from https://www.websparrow.org/web/how-to-get-selected-radio-button-value-in-jquery
 
-    wrong = 8 - correct;
+    $("#submit").click(function () {
+
+      for (i = 0; i < jackieTreehorn.questions.length; i++)
+
+        var userChose = $("input[name='name" + [i] + "']:checked").val();
+      var questionId = "#question" + [i];
+      var correctAnswer = $(questionId).attr("data-correct")
+
+      //they got it right!
+      if (userChose === correctAnswer) {
+        correct++;
+        abstain--;
+      }
+
+      //they left it blank!
+      if (userChose === false) {
+
+      }
+
+      //they got it wrong!
+      else {
+        wrong++;
+        abtain--;
+      }
+      return correct, wrong, abstain;
+
+      // end of submit click
+    });
+
+    //end of checkScore function
   }
 
 
@@ -227,23 +255,23 @@ $(document).ready(function () {
 
     checkScore();
 
-    //         //  On game end: 
-    //         //    Questions, Timer, & Submit Disappear
-    //         $("#timer").css('display', 'none');
-    //         $("#questions").css('display', 'none');
-    //         $("#submit").css('display', 'none');
+    //  On game end: 
+    //    Questions, Timer, & Submit Disappear
+    $("#timer").css('display', 'none');
+    $("#questions").css('display', 'none');
+    $("#submit").css('display', 'none');
 
-    //         //    Results, Correct, Wrong, Abstain & Again appear
-    //         $("#results").css('display', 'block');
-    //         $("#correct").css('display', 'block');
-    //         $("#wrong").css('display', 'block');
-    //         $("#again").css('display', 'block');
+    //    Results, Correct, Wrong, Abstain & Again appear
+    $("#results").css('display', 'block');
+    $("#correct").css('display', 'block');
+    $("#wrong").css('display', 'block');
+    $("#again").css('display', 'block');
 
-    //         //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
-    //         $("#results").text('That was a LOT of Questions!');
-    //         $("#correct").text(correct);
-    //         $("#wrong").text(wrong);
-    //         $("#abstain").text(abstain)
+    //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
+    $("#results").text('That was a LOT of Questions!');
+    $("#correct").text("Answers Questioned: " + correct);
+    $("#wrong").text("Questions Answered: " + wrong);
+    $("#abstain").text("Responsibilites Abstained: " + abstain)
 
     //end of gameOver function
   }
