@@ -17,42 +17,42 @@
 var jackieTreehorn = {
   questions: [{
     prompt: "What are you doing?",
-    choose: ["Taking a quiz. ", "Who wants to know? ", "Sitting comfortably. ", "Chillaxin.' "],
+    choose: ["Taking a quiz.", "Who wants to know?", "Sitting comfortably.", "Chillaxin.'"],
     correct: 1
   },
   {
     prompt: "Where are you doing it?",
-    choose: ["On the computer. ", "I'm at home. ", "I'm at work. ", "What if it's none of these? "],
+    choose: ["On the computer.", "I'm at home.", "I'm at work.", "What if it's none of these?"],
     correct: 3
   },
   {
     prompt: "What time is it right now?",
-    choose: ["dot com! #Bojack ", "It's x hours & y minutes. ", "When does the sun set? ", "The timer above says 1 minute. "],
+    choose: ["dot com! #Bojack", "It's x hours & y minutes.", "When does the sun set?", "The timer above says 1 minute."],
     correct: 2
   },
   {
     prompt: "Why are you here?",
-    choose: ["Here I am! ", "Why is anybody anywhere? ", "Woah...That's deep!. ", "I'm thinking about hiring a web developer. "],
+    choose: ["Here I am!", "Why is anybody anywhere?", "Woah...That's deep!", "I'm thinking about hiring a web developer."],
     correct: 1
   },
   {
     prompt: "Do you like quizzes?",
-    choose: ["Yes, they tell me my personality. ", "No, too many questions. ", "I like popcorn, not pop quizzes. ", "How can I say this nicely? "],
+    choose: ["Yes, they tell me my personality.", "No, too many questions.", "I like popcorn, not pop quizzes.", "How can I say this nicely?"],
     correct: 3
   },
   {
     prompt: "If you could make a quiz, what would yours be about?",
-    choose: ["Pizza. ", "Cats. ", "Gif vs. Jif. ", "17th Century French Poetry. ", "Huh? "],
+    choose: ["Pizza.", "Cats.", "Gif vs. Jif.", "17th Century French Poetry.", "Huh?"],
     correct: 4
   },
   {
     prompt: "Want an easy one?",
-    choose: ["Yes! ", "Do I? ", "No!! "],
+    choose: ["Yes!", "Do I?", "No!!"],
     correct: 1
   },
   {
     prompt: "Have you figured it out?",
-    choose: ["What if I said yes? ", "Of course! ", "This was too easy. ", "Not this time. "],
+    choose: ["What if I said yes?", "Of course!", "This was too easy.", "Not this time."],
     correct: 0
   }]
 };
@@ -208,46 +208,48 @@ $(document).ready(function () {
 
   var correct = 0;
   var wrong = 0;
-  var abstain = jackieTreehorn.questions.length;
+  var abstain = 0;
 
   //keeping score
   function checkScore() {
 
+    for (var i = 0; i < jackieTreehorn.questions.length; i++) {
 
-    // //example code from https://www.websparrow.org/web/how-to-get-selected-radio-button-value-in-jquery
+      //make a dynamic string which will check the option checked for each question
+      var userChoseAddress = "input[name='name" + [i] + "']:checked"
+      var userChose = $(userChoseAddress).val();
 
-    $("#submit").click(function () {
+      console.log(userChose);
 
-      for (i = 0; i < jackieTreehorn.questions.length; i++)
+      //dynamic string to select the question corresponding to the response we identfied above
+      var questionId = "#question" + ([i]);
+      // console.log(questionId);
 
-        var userChose = $("input[name='name" + [i] + "']:checked").val();
-      var questionId = "#question" + [i];
+      //correct answer for the question in questions, stored in the data-correct value of the div
       var correctAnswer = $(questionId).attr("data-correct")
+      console.log(correctAnswer)
+      console.log("----------------------------")
+      //possible scenarios:
 
       //they got it right!
       if (userChose === correctAnswer) {
         correct++;
-        abstain--;
       }
 
       //they left it blank!
-      if (userChose === false) {
-
+      if (typeof userChose === "undefined") {
+        abstain++;
       }
 
       //they got it wrong!
-      else {
+      if (userChose !== correctAnswer && typeof userChose !== "undefined"){
         wrong++;
-        abtain--;
       }
-      return correct, wrong, abstain;
-
-      // end of submit click
-    });
+      //end of for loop
+    }
 
     //end of checkScore function
   }
-
 
   //       //  Game ends when Submit is clicked OR Timer runs out.
   function gameOver() {
@@ -265,13 +267,14 @@ $(document).ready(function () {
     $("#results").css('display', 'block');
     $("#correct").css('display', 'block');
     $("#wrong").css('display', 'block');
+    $("#abstain").css('display', 'block');
     $("#again").css('display', 'block');
 
     //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
     $("#results").text('That was a LOT of Questions!');
-    $("#correct").text("Answers Questioned: " + correct);
-    $("#wrong").text("Questions Answered: " + wrong);
-    $("#abstain").text("Responsibilites Abstained: " + abstain)
+    $("#correct").text("Answers Questioned Correctly: " + correct);
+    $("#wrong").text("Questions Answered Incorrectly: " + wrong);
+    $("#abstain").text("Obstinate Abstentions: " + abstain);
 
     //end of gameOver function
   }
