@@ -90,14 +90,41 @@ $(document).ready(function () {
     //Questions are populated
     questionMaker();
 
-    //Timer begins counting down
-    countDown();
+    // Set game time to 2 minutes in seconds
+    var gameTime = 5;
 
+    //Timer begins counting down
+    var tick = setInterval(countDown, 1000);
+
+    function countDown() {
+
+      //decrease gameTime by 1 second until time is out.
+      if (gameTime > 0) {
+        gameTime--;
+
+        // convert our seconds to minutes, seconds
+        var minutes = Math.floor(gameTime / 60);
+        var seconds = gameTime - (minutes * 60);
+
+        var timerDisplay = "Time left:  " + minutes + " : " + seconds;
+
+        $("#timer").text(timerDisplay);
+        // console.log(gameTime)
+        // console.log(timerDisplay)
+
+      }
+      //  Game ends when Submit is clicked OR Timer runs out.
+
+
+      if (gameTime === 0) {
+        clearInterval(tick);
+        gameOver();
+      }
+
+      //end of countdown function
+    }
     //end of start button
   }
-
-
-
 
 
   function questionMaker() {
@@ -172,40 +199,6 @@ $(document).ready(function () {
 
 
 
-  //  Timer begins counting down
-  function countDown() {
-
-    // Set game time to 2 minutes in seconds
-    var gameTime = 121;
-
-    var tick = setInterval(function () {
-
-      //decrease gameTime by 1 second until time is out.
-      if (gameTime > 0) {
-        gameTime--;
-
-        // convert our seconds to minutes, seconds
-        var minutes = Math.floor(gameTime / 60);
-        var seconds = gameTime - (minutes * 60);
-
-        var timerDisplay = "Time left:  " + minutes + " : " + seconds;
-
-        $("#timer").text(timerDisplay);
-        // console.log(gameTime)
-        // console.log(timerDisplay)
-
-      }
-      //  Game ends when Submit is clicked OR Timer runs out.
-
-      if (gameTime === 0) {
-        clearInterval();
-        gameOver();
-      }
-    }, 1000);
-
-    //end of countdown function
-  }
-
   var correct = 0;
   var wrong = 0;
   var abstain = 0;
@@ -242,7 +235,7 @@ $(document).ready(function () {
       }
 
       //they got it wrong!
-      if (userChose !== correctAnswer && typeof userChose !== "undefined"){
+      if (userChose !== correctAnswer && typeof userChose !== "undefined") {
         wrong++;
       }
       //end of for loop
@@ -251,9 +244,10 @@ $(document).ready(function () {
     //end of checkScore function
   }
 
-  //       //  Game ends when Submit is clicked OR Timer runs out.
+        //  Game ends when Submit is clicked OR Timer runs out.
   function gameOver() {
-    clearInterval();
+    gametime = 0;
+    
 
     checkScore();
 
@@ -271,7 +265,7 @@ $(document).ready(function () {
     $("#again").css('display', 'block');
 
     //    Correct, Wrong, & Abstain appear are populated with values from user's choices.
-    $("#results").text('That was a LOT of Questions!');
+    $("#results").text('Some questions only raise more questions.');
     $("#correct").text("Answers Questioned Correctly: " + correct);
     $("#wrong").text("Questions Answered Incorrectly: " + wrong);
     $("#abstain").text("Obstinate Abstentions: " + abstain);
